@@ -1,0 +1,353 @@
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;200;300;400;500;600;700&family=Righteous&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body{
+    background-color: #FAFAFA;
+    font-family: 'Roboto';
+}
+
+li{
+    list-style-type: none;
+}
+
+.header{
+    position:fixed;
+    color: #FFFFFF; 
+    font-weight: 700;
+    font-size: 37px;
+    width: 100vw;
+    padding: 20px 0;
+    background-color: #EC362D;
+    text-align: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* primeira página */
+
+.container{   
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.createQuizzBox{
+    width: 1051px;
+    padding: 20px 0;
+    margin-top: 146px;
+    background: #FAFAFA;
+    border: 1px dashed #D5D5D5;
+    box-sizing: border-box;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.createQuizzBox > h1{
+    width: 250px;
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #B9B9B9;
+
+}
+
+.createQuizzBox > h2{
+    width: 136px;
+    padding: 5px;
+    font-weight: 400;
+    font-size: 21px;
+    text-align: center;
+    background: #FAFAFA;
+    border: 1px dashed #EC362D;
+    box-sizing: border-box;
+    border-radius: 50px;
+    color: #EC362D;
+}
+
+.quizzesAPI{
+    margin-top: 112px;   
+}
+
+.quizzesAPI h1{
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.quizzesAPI > ul{
+    display: flex;
+    
+}
+
+.images{
+    display: flex;
+    flex-direction: column;
+}
+
+.images > img{
+    margin-bottom: 12px;
+    margin-left: 6px;
+    margin-right: 6px;  
+}
+
+
+/* segunda página */
+
+.quizzTitle{
+    width: 100vw;
+    background-image: url("./imagens/Rectangle\ 42.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 227px;
+    margin-top: 69px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.quizzTitle > h1{
+    font-size: 39px;
+    color: #FFFFFF;    
+}
+
+.quizzBox{
+    width: 759px;
+    height: 676px;
+    left: 340px;
+    margin-top: 42px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+
+.quizzQuestion{
+    width: 688.16px;
+    height: 137.99px;
+    margin: 28px 36px;
+
+    background: #434CA0;
+}
+
+.quizzQuestion > h1{
+    text-align: center;
+    padding: 60px 0;
+    font-size: 23px;
+    font-weight: bold;
+    color:#FFFFFF;
+}
+
+.quizzBox > ul{
+    display:flex;
+}
+
+.options{
+    display: flex;
+    flex-direction: column;
+}
+
+.options > img{
+    margin-left: 36px;
+    margin-right: -11px;
+    margin-top: 20px;
+}
+
+.options > h1{
+    margin-left: 36px;
+    font-size: 20px; 
+    font-weight: bold;
+}
+
+/* terceira página */
+
+.pagina-tres > h1{
+    margin-top: 140px;
+    font-weight: bold;
+    font-size: 23px;
+}
+
+.startBox{
+    width: 600px;
+    height: 256px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    margin-top: 27px;
+}
+
+.startBox > input{
+    width: 564px;
+    height: 46px;
+    background: #FFFFFF;
+    border: 1px solid #D1D1D1;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin-top: 21px;
+    margin-bottom: -12px;
+    margin-left: 16px;
+    padding-left: 23px;
+    font-size: 19px;
+    font-style: italic;
+}
+
+::placeholder{
+    color: #BABABA;
+}
+
+.pagina-tres > h2{
+width: 368.86px;
+text-align: center;
+margin-top: 85px;
+padding: 20px;
+font-size: 21px;
+color: #FFFFFF;
+font-weight: 400;
+background: #EC362D;
+border-radius: 15px;
+}
+
+/* quarta página */
+
+.pagina-quatro > h1{
+    margin-top: 140px;
+    font-weight: bold;
+    font-size: 23px;
+}
+
+.createQuestions{
+    width: 600px;
+    height: 750px;
+    margin-top: 36px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+
+}
+
+.createQuestions > ul{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.createQuestions > ul > input{
+    width: 564px;
+    height: 46px;
+    background: #FFFFFF;
+    border: 1px solid #D1D1D1;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin-top: 21px;
+    margin-bottom: -12px;
+    margin-left: 16px;
+    padding-left: 23px;
+    font-size: 19px;
+    font-style: italic;
+}
+
+.createQuestions > h3 {
+    font-size: 20px;
+    margin-top: 37px;
+    margin-left: 17px;
+    margin-bottom: 10;
+    font-weight: bold;
+}
+
+.createQuestions > h4{
+    font-size: 20px;
+    margin-top:60px;
+    margin-bottom: -30px;
+    font-weight: bold;
+    width: 600px;
+    padding: 17px ;
+    background-color: #FFFFFF;    
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box; 
+}
+
+.createQuestions >h2 {
+    margin-left: 80px;
+    width: 368.86px;
+    text-align: center;
+    margin-top: 85px;
+    padding: 20px;
+    font-size: 21px;
+    color: #FFFFFF;
+    font-weight: 400;
+    background: #EC362D;
+    border-radius: 15px;  
+}
+
+/* quinta página */
+
+.pagina-cinco > h1{
+    margin-top: 140px;
+    font-weight: bold;
+    font-size: 23px;
+}
+
+.createLevels{
+    width: 600px;
+    height: 316px;
+    margin-top: 36px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+.createLevels > h3{
+    font-size: 20px;
+    margin-top: 37px;
+    margin-left: 17px;
+    margin-bottom: 10;
+    font-weight: bold;
+}
+
+.createLevels > ul{
+    display: flex;
+    flex-direction: column;    
+}
+
+.createLevels > ul > input{
+    width: 564px;
+    height: 46px;
+    background: #FFFFFF;
+    border: 1px solid #D1D1D1;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin-top: 21px;
+    margin-bottom: -12px;
+    margin-left: 16px;
+    padding-left: 23px;
+    font-size: 19px;
+    font-style: italic;
+}
+
+.createLevels > h4{
+    font-size: 20px;
+    margin-top:60px;
+    margin-bottom: -30px;
+    font-weight: bold;
+    width: 600px;
+    padding: 17px ;
+    background-color: #FFFFFF;    
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;   
+}
+
+.createLevels >h2{
+    margin-left: 80px;
+    width: 368.86px;
+    text-align: center;
+    margin-top: 85px;
+    padding: 20px;
+    font-size: 21px;
+    color: #FFFFFF;
+    font-weight: 400;
+    background: #EC362D;
+    border-radius: 15px;        
+}
+
+.invisivel{
+    display: none;
+}
