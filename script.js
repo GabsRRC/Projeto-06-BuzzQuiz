@@ -10,9 +10,17 @@ function carregarQuizzAPI(){
 
         for(let i=0; i <= 5; i+=2){
             document.querySelector(".quizzesAPI > ul").innerHTML+=`
-            <li class="images" > 
-                <img src="${quizzes[i].image}">
-                <img src="${quizzes[i+1].image}">
+            <li class="images"> 
+                <div style="background-image: url('${quizzes[i].image}');">
+                    <div class="filtro-degrade">
+                        <h4>${quizzes[i].title}</h4>
+                    </div>
+                </div>
+                <div style="background-image: url('${quizzes[i+1].image}');">
+                    <div class="filtro-degrade">
+                        <h4>${quizzes[i+1].title}</h4>
+                    </div>
+                </div>
             </li>
             `
         }
@@ -24,6 +32,9 @@ function carregarQuizzAPI(){
 }
 
 carregarQuizzAPI()
+
+
+
 
 // Navegar pelas páginas
 function criarQuizz(){
