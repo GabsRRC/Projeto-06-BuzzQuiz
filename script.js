@@ -10,7 +10,7 @@ function carregarQuizzAPI(){
 
         for(let i=0; i <= 5; i+=2){
             document.querySelector(".quizzesAPI > ul").innerHTML+=`
-            <li class="images"> 
+            <li onclick = "clicarNoQuizz()" class="images"> 
                 <div style="background-image: url('${quizzes[i].image}');">
                     <div class="filtro-degrade">
                         <h4>${quizzes[i].title}</h4>
@@ -24,16 +24,17 @@ function carregarQuizzAPI(){
             </li>
             `
         }
-
-
-     //falta terminar
-
     })
 }
 
 carregarQuizzAPI()
 
-
+function clicarNoQuizz(){
+    const esconde = document.querySelector(".pagina-um");
+    esconde.classList.add("invisivel");
+    const mostra = document.querySelector(".pagina-dois");
+    mostra.classList.remove("invisivel");
+}
 
 
 // Navegar pelas páginas
