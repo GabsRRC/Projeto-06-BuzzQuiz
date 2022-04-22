@@ -18,7 +18,7 @@ function carregarQuizzAPI(){
         }
 
 
-
+     //falta terminar
 
     })
 }
