@@ -87,10 +87,13 @@ li{
 }
 
 .images > img{
+    width: 340px;
+    height: 181px;
     margin-bottom: 12px;
     margin-left: 6px;
     margin-right: 6px;  
 }
+
 
 
 /* segunda página */

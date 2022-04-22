@@ -4,47 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BuzzQuizz">
-    <meta name="keywords" content="HTML, CSS, JavaScript, Quizz">
-    <meta name="author" content="Gabi e Bia">
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
-    <title>BuzzQuizz</title>
-    <script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule="" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"></script>
+    <title>Document</title>
 </head>
 <body>
-    <!-- HEADER -->
-    <div class="header" onclick="reloadPage()">BuzzQuizz</div>
-    <!-- BOTÃO PARA CRIAR QUIZZ -->
+    <div class="header">BuzzQuizz</div>
+
     <div class="container pagina-um">
         <ul class="createQuizzBox">
             <h1>Você não criou nenhum quizz ainda :(</h1>
-            <h2 onclick="criarQuizz()">Criar Quizz</h2>
+            <h2>Criar Quizz</h2>
         </ul>
-    <!-- EXIBIR QUIZZ EXISTENTES -->
-                <!-- EM CONSTRUÇÃO... -->
 
         <div class="quizzesAPI">
             <h1>Todos os Quizzes</h1>
             <ul>
-                <li class="images" > 
-                   <img src="./imagens/Rectangle 34.png">
-                   <img src="./imagens/Rectangle 34.png">
-                </li> 
-                <li class="images" > 
-                   <img src="./imagens/Rectangle 34.png">
-                   <img src="./imagens/Rectangle 34.png">
-                </li> 
-                <li class="images" > 
-                   <img src="./imagens/Rectangle 34.png">
-                   <img src="./imagens/Rectangle 34.png">
-                </li> 
             </ul>
         </div>
-    </div>
+    </div> 
 
-    <!-- QUIZZ LAYOUT -->
     <div class="container pagina-dois invisivel">
         <ul class="quizzTitle">
             <h1>O quão Potterhead é você?</h1>            
@@ -88,30 +67,49 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </div> 
 
-    <!-- CRIAR QUIZZ (PT1) -->
     <div class="container pagina-tres invisivel">
         <h1>Comece pelo começo</h1>
         <ul class="startBox" >
-            <input class="quizz-title" placeholder="Título do seu quizz"></input>
-            <input class="quizz-url" placeholder="URL da imagem do seu quizz"></input>
-            <input class="quizz-num-questions" placeholder="Quantidade de perguntas do seu quizz"></input>
-            <input class="quizz-num-levels" placeholder="Quantidade de níveis do quizz"></input>
+            <input placeholder="Título do seu quizz"></input>
+            <input placeholder="URL da imagem do seu quizz"></input>
+            <input placeholder="Quantidade de perguntas do seu quizz"></input>
+            <input placeholder="Quantidade de níveis do quizz"></input>
         </ul>
-        <h2 onclick="verificarQuizzInfo()">Prosseguir para criar perguntas</h2>
+        <h2>Prosseguir para criar perguntas</h2>
 
     </div>
-    <!-- CRIAR PERGUNTAS DO QUIZZ (PT2) -->
+
     <div class="container pagina-quatro invisivel">
         <h1>Crie suas perguntas</h1>
-
         <div class="createQuestions">
-            <ul class="createQuestion"></ul>   
-            <h2 onclick="verificarPerguntas()">Prosseguir pra criar níveis</h2>  
+            <h3>Pergunta 1</h3>
+            <ul>
+                <input placeholder="Texto da pergunta"></input>
+                <input placeholder="Cor de fundo da pergunta"></input>
+            </ul>
+            <h3>Resposta Correta</h3>
+            <ul>
+                <input placeholder="Resposta Correta"></input>
+                <input placeholder="URL da imagem"></input>
+            </ul>
+            <h3>Respostas Incorretas</h3>
+            <ul>
+                <input placeholder="Resposta Incorreta 1"></input>
+                <input placeholder="URL da imagem 1"></input>
+                <input placeholder="Resposta Incorreta 2"></input>
+                <input placeholder="URL da imagem 2"></input>    
+                <input placeholder="Resposta Incorreta 3"></input>
+                <input placeholder="URL da imagem 3"></input>       
+            </ul>
+            <h4>Pergunta 2</h4>
+            <h4>Pergunta 3</h4>    
+            <h2>Prosseguir para criar perguntas</h2>    
         </div>
+
     </div>
-    <!-- NIVEIS DO QUIZZ (PT3) -->
+
     <div class="container pagina-cinco invisivel">
         <h1>Agora, decida os níveis</h1>
         <div class="createLevels">
@@ -122,14 +120,15 @@
                 <input placeholder="URL da imagem do nível"></input>
                 <input placeholder="Descrição do nível"></input>
             </ul>
-            <h4>Nível 2</h4>
-            <h4>Nível 3</h4> 
-            <h2>Finalizar Quizz</h2>
+            <h4>Pergunta 2</h4>
+            <h4>Pergunta 3</h4> 
+            <h2>Prosseguir para criar perguntas</h2>
       
         </div>
+
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script src="script.js"></script>
 </body>
 </html>

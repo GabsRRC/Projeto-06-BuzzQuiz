@@ -1,3 +1,30 @@
+let quizzes = [];
+let conteudo = document.querySelector(".quizzesAPI > ul");
+
+function carregarQuizzAPI(){
+    let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes');
+    
+    promise.then((response) =>{
+        quizzes = response.data;
+        conteudo.innerHTML = "";
+
+        for(let i=0; i <= 5; i+=2){
+            document.querySelector(".quizzesAPI > ul").innerHTML+=`
+            <li class="images" > 
+                <img src="${quizzes[i].image}">
+                <img src="${quizzes[i+1].image}">
+            </li>
+            `
+        }
+
+
+
+
+    })
+}
+
+carregarQuizzAPI()
+
 // Navegar pelas páginas
 function criarQuizz(){
     const esconde = document.querySelector(".pagina-um");
