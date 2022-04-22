@@ -51,7 +51,7 @@ let numPerguntas = 0;
 
 function verificarQuizzInfo(){
     let tituloQuizz = document.querySelector(".quizz-title").value;
-    if (tituloQuizz.length < 20) {
+    if (tituloQuizz.length < 20 || tituloQuizz.length > 65 ) {
         alert("O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres.");
     }
     let imagemQuizz = document.querySelector(".quizz-url").value;
@@ -66,7 +66,7 @@ function verificarQuizzInfo(){
     if (numNiveis < 2) {
         alert("A quantidade de níveis deve ser no mínimo 2.");
     }
-    if ((tituloQuizz.length >= 20) && (verificarURL(imagemQuizz)) && (numPerguntas >= 3) && (numNiveis >= 2)) {
+    if ((tituloQuizz.length >= 20 && tituloQuizz.length <= 65) && (verificarURL(imagemQuizz)) && (numPerguntas >= 3) && (numNiveis >= 2)) {
         prosseguirPerguntas();
         criarPerguntas();
     }
@@ -154,6 +154,7 @@ function verificarPerguntas(){
     if(count === questions.length){
 
         definirNiveis();
+        createLevels();
         correctArray(questionsArrayCorrect, questionsArray, numberOfQuestions);
     }
 }
@@ -200,7 +201,7 @@ function verificarPergunta(question) {
     
     arrayResposta.sort(randomizar);
     
-    if(tituloPergunta.length < 20){
+    if(tituloPergunta.length <= 20){
         alert("Pergunta deve conter no mínimo 20 caracteres");
     }
     else if(!verificarCor(corPergunta)){
@@ -225,6 +226,106 @@ function verificarPergunta(question) {
     }
     return controle;
 }
+
+
+
+
+function createLevels() {
+    const levelsDiv = document.querySelector(".levels");
+
+    /* Renderiza o primeiro nível*/
+    levelsDiv.innerHTML += `
+        <div class="level" style="height: 316px" data-identifier="level">
+            <p>Nível 1</p>
+            <div class="level-input" style="padding-top: 15px">
+                <input class="quizz-input level-title" type="text" placeholder="Título do nível">
+                <input class="quizz-input level-percentage" type="number" placeholder="% de acerto mínima">
+                <input class="quizz-input level-url" type="text" placeholder="URL da imagem do nível" >
+                <input class="quizz-input level-description" type="text" placeholder="Descrição do nível" >
+            </div>
+        </div>
+    `;
+
+    for (let i = 2; i <= numberOfLevels; i++) {
+        levelsDiv.innerHTML += `
+            <div class="level" data-identifier="level">
+                <div class="level-header">
+                    <p>Nível ${i}</p>
+                    <ion-icon name="create-outline" onclick="editQuestion(this, '.level-input', 'edit-level')" data-identifier="expand"></ion-icon>
+                </div>
+                <div class="level-input hide">
+                    <input class="quizz-input level-title" type="text" placeholder="Título do nível"/>
+                    <input class="quizz-input level-percentage" type="number" placeholder="% de acerto mínima"/>
+                    <input class="quizz-input level-url" type="text" placeholder="URL da imagem do nível"/>
+                    <input class="quizz-input level-description" type="text" placeholder="Descrição do nível"/>
+                </div>
+            </div>
+        `;
+    }
+}
+
+let isPercentageZero = 0;
+let objectLevel = {};
+let levelsArrayCorrect = [];
+
+function verifyLevels(classPageA, classPageB) {
+    const levels = document.querySelectorAll(".level");   
+    let count = 0;
+
+    for (let i = 0; i < levels.length ; i++) {
+        const level = levels[i];
+        if(verifyLevel(level)){
+            levelsArrayCorrect.push(objectLevel);
+            count++;
+        }
+    }
+    
+    if(count === levels.length){
+        nextPage(classPageA, classPageB);
+        correctArray(levelsArrayCorrect, levelsArray, numberOfLevels);
+
+        sendQuizz(quizzTitle, quizzURL, questionsArray, levelsArray);
+    }
+}
+
+function verifyLevel(level) {
+    const levelTitle = level.querySelector(".level-title").value;
+    const levelPercentage = parseInt(level.querySelector(".level-percentage").value);
+    const levelUrl = level.querySelector(".level-url").value;    
+    const levelDescription = level.querySelector(".level-description").value;    
+    let control = false;
+    
+    if(levelPercentage === 0){
+        isPercentageZero++;
+    }
+
+    if(levelTitle.length < 10){
+        alert("O título da pergunta deve ter, no mínimo, 10 caracteres");
+    }
+    else if(levelPercentage < 0 || levelPercentage > 100){
+        alert("Porcentagem com número inválido");
+    }
+    else if(!verifyURL(levelUrl)){
+        alert("Formato de URL inválido");
+    }
+    else if(levelDescription.length < 30){
+        alert("Descrição do nível deve conter, no mínimo, 30 caracteres");
+    }
+    else if(isPercentageZero === 0){
+        alert("Deve haver uma porcentagem com 0(zero)");
+    }
+    else{
+        objectLevel = {
+            title: levelTitle,
+            image: levelUrl,
+            text: levelDescription,
+            minValue: levelPercentage
+        }
+        control = true;
+    }
+    return control;
+}
+
 
 
 //Criar níveis
