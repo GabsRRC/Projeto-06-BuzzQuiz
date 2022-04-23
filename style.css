@@ -116,7 +116,6 @@ li{
 
 .quizzTitle{
     width: 100vw;
-    background-image: url("./imagens/Rectangle\ 42.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -148,7 +147,6 @@ li{
     height: 137.99px;
     margin: 28px 36px;
 
-    background: #434CA0;
 }
 
 .quizzQuestion > h1{
@@ -161,6 +159,9 @@ li{
 
 .quizzBox > ul{
     display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 740px;
 }
 
 .options{
@@ -169,8 +170,9 @@ li{
 }
 
 .options > img{
+    width: 330px;
+    height: 175px;
     margin-left: 36px;
-    margin-right: -11px;
     margin-top: 20px;
 }
 
@@ -178,6 +180,9 @@ li{
     margin-left: 36px;
     font-size: 20px; 
     font-weight: bold;
+    width: 330px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* terceira página */
