@@ -87,6 +87,7 @@ function verificarCor(color){
 
 // Verifica as informações do quiz
 let numPerguntas = 0;
+let numNiveis = 0;
 
 function verificarQuizzInfo(){
     let tituloQuizz = document.querySelector(".quizz-title").value;
@@ -267,15 +268,13 @@ function verificarPergunta(question) {
 }
 
 
-
-
 function createLevels() {
     const levelsDiv = document.querySelector(".levels");
 
     /* Renderiza o primeiro nível*/
     levelsDiv.innerHTML += `
-        <div class="level" style="height: 316px" data-identifier="level">
-            <p>Nível 1</p>
+        <div class="createLevels" style="height: 316px" data-identifier="level">
+            <h4>Nível 1</h4>
             <div class="level-input" style="padding-top: 15px">
                 <input class="quizz-input level-title" type="text" placeholder="Título do nível">
                 <input class="quizz-input level-percentage" type="number" placeholder="% de acerto mínima">
@@ -285,14 +284,13 @@ function createLevels() {
         </div>
     `;
 
-    for (let i = 2; i <= numberOfLevels; i++) {
+    for (let i = 2; i <= numNiveis; i++) {
         levelsDiv.innerHTML += `
-            <div class="level" data-identifier="level">
-                <div class="level-header">
-                    <p>Nível ${i}</p>
-                    <ion-icon name="create-outline" onclick="editQuestion(this, '.level-input', 'edit-level')" data-identifier="expand"></ion-icon>
+            <div class="createLevels" data-identifier="level">
+                <div>
+                    <h4>Nível ${i}</h4>
                 </div>
-                <div class="level-input hide">
+                <div class="level-input">
                     <input class="quizz-input level-title" type="text" placeholder="Título do nível"/>
                     <input class="quizz-input level-percentage" type="number" placeholder="% de acerto mínima"/>
                     <input class="quizz-input level-url" type="text" placeholder="URL da imagem do nível"/>
@@ -307,8 +305,17 @@ let isPercentageZero = 0;
 let objectLevel = {};
 let levelsArrayCorrect = [];
 
-function verifyLevels(classPageA, classPageB) {
-    const levels = document.querySelectorAll(".level");   
+
+function correctArray(array, newArray, n) {
+    let i = array.length - n;
+    
+    for (i; i < array.length; i++) {
+        newArray.push(array[i]);
+    }
+}
+
+function verifyLevels() {
+    const levels = document.querySelectorAll(".levels");   
     let count = 0;
 
     for (let i = 0; i < levels.length ; i++) {
@@ -320,10 +327,10 @@ function verifyLevels(classPageA, classPageB) {
     }
     
     if(count === levels.length){
-        nextPage(classPageA, classPageB);
-        correctArray(levelsArrayCorrect, levelsArray, numberOfLevels);
-
-        sendQuizz(quizzTitle, quizzURL, questionsArray, levelsArray);
+        //nextPage(classPageA, classPageB);
+        //correctArray(levelsArrayCorrect, levelsArray, numNiveis);
+        reloadPage();
+        //sendQuizz(quizzTitle, quizzURL, questionsArray, levelsArray);
     }
 }
 
@@ -344,7 +351,7 @@ function verifyLevel(level) {
     else if(levelPercentage < 0 || levelPercentage > 100){
         alert("Porcentagem com número inválido");
     }
-    else if(!verifyURL(levelUrl)){
+    else if(!verificarURL(levelUrl)){
         alert("Formato de URL inválido");
     }
     else if(levelDescription.length < 30){

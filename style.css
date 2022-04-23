@@ -306,21 +306,22 @@ border-radius: 15px;
 
 /* quinta página */
 
-.pagina-cinco > h1{
+.pagina-cinco h1{
     margin-top: 140px;
     font-weight: bold;
     font-size: 23px;
+    margin-bottom: 40px;
 }
 
 .createLevels{
     width: 600px;
     height: 316px;
-    margin-top: 36px;
+    margin-bottom: 36px;
     background: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
 
-.createLevels > h3{
+.createLevels h3{
     font-size: 20px;
     margin-top: 37px;
     margin-left: 17px;
@@ -328,12 +329,12 @@ border-radius: 15px;
     font-weight: bold;
 }
 
-.createLevels > ul{
+/* .createLevels ul{
     display: flex;
     flex-direction: column;    
-}
+} */
 
-.createLevels > ul > input{
+.createLevels input{
     width: 564px;
     height: 46px;
     background: #FFFFFF;
@@ -348,19 +349,16 @@ border-radius: 15px;
     font-style: italic;
 }
 
-.createLevels > h4{
+.createLevels h4{
     font-size: 20px;
-    margin-top:60px;
     margin-bottom: -30px;
     font-weight: bold;
     width: 600px;
     padding: 17px ;
-    background-color: #FFFFFF;    
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;   
 }
 
-.createLevels >h2{
+.createLevels h2{
     margin-left: 80px;
     width: 368.86px;
     text-align: center;
