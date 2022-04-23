@@ -1,5 +1,6 @@
 let quizzes = [];
 let conteudo = document.querySelector(".quizzesAPI > ul");
+let quizzAtual = {};
 
 function carregarQuizzAPI(){
     let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes');
@@ -10,13 +11,13 @@ function carregarQuizzAPI(){
 
         for(let i=0; i <= 5; i+=2){
             document.querySelector(".quizzesAPI > ul").innerHTML+=`
-            <li onclick = "clicarNoQuizz()" class="images"> 
-                <div style="background-image: url('${quizzes[i].image}');">
+            <li class="images"> 
+                <div id="${quizzes[i].id}" onclick = "clicarNoQuizz(this)" style="background-image: url('${quizzes[i].image}');">
                     <div class="filtro-degrade">
                         <h4>${quizzes[i].title}</h4>
                     </div>
                 </div>
-                <div style="background-image: url('${quizzes[i+1].image}');">
+                <div id="${quizzes[i+1].id}" onclick = "clicarNoQuizz(this)" style="background-image: url('${quizzes[i+1].image}');">
                     <div class="filtro-degrade">
                         <h4>${quizzes[i+1].title}</h4>
                     </div>
@@ -29,12 +30,60 @@ function carregarQuizzAPI(){
 
 carregarQuizzAPI()
 
-function clicarNoQuizz(){
+function clicarNoQuizz(quizz){
     const esconde = document.querySelector(".pagina-um");
     esconde.classList.add("invisivel");
     const mostra = document.querySelector(".pagina-dois");
     mostra.classList.remove("invisivel");
+
+    const quizzId = quizz.getAttribute("id");
+
+    let promise = axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${quizzId}`)
+    
+    promise.then(response => {
+        quizzAtual = response.data; 
+
+        //adc aqui função do quizz recebido pela API
+        renderizarUnicoQuizz()
+    })
+
 }
+
+
+function renderizarUnicoQuizz(){
+    document.querySelector(".pagina-dois > div").innerHTML=`
+        <ul style="background-image: url(${quizzAtual.image})" class="quizzTitle">
+            <h1>${quizzAtual.title}</h1>            
+        </ul>
+        `
+    
+    document.querySelector(".quizzBox").innerHTML=`
+        <div style="background-color: ${quizzAtual.questions[0].color}" class="quizzQuestion">
+            <h1>${quizzAtual.questions[0].title}</h1>
+        </div>
+    `
+    let answersHTML = "";
+    const answers = quizzAtual.questions[0].answers;
+
+    for(let i=0; i <= answers.length-1; i++){
+        answersHTML += `
+        <li class="options" >
+            <img src="${answers[i].image}">
+            <h1>${answers[i].text}</h1>
+        </li>
+        `
+    }
+    
+    document.querySelector(".quizzBox").innerHTML+=`
+    <ul> 
+        ${answersHTML}
+    </ul>
+    `
+    
+}
+
+
+
 
 
 // Navegar pelas páginas
