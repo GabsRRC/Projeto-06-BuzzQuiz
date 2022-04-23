@@ -53,7 +53,9 @@ function clicarNoQuizz(quizz){
 function renderizarUnicoQuizz(){
     document.querySelector(".pagina-dois").innerHTML=`
         <ul style="background-image: url(${quizzAtual.image})" class="quizzTitle">
-            <h1>${quizzAtual.title}</h1>            
+            <div class="filtro-opacidade">
+                <h1>${quizzAtual.title}</h1>  
+            </div>          
         </ul>
         `
 
