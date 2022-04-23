@@ -376,6 +376,47 @@ border-radius: 15px;
     border-radius: 15px;        
 }
 
+/* sexta página */
+.quizz-success-image {
+    height: 266px;
+    width: 500px;
+    border-radius: 5px;
+    object-fit: cover;
+    display: flex;
+    align-items: flex-end;
+    background-color: lightblue;
+}
+  
+.quizz-success-text {
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 27px;
+    color: #fff;
+    padding: 0 0 9px 23px;
+}
+
+.create h2{
+    margin-left: 80px;
+    width: 368.86px;
+    text-align: center;
+    margin-top: 85px;
+    padding: 20px;
+    font-size: 21px;
+    color: #FFFFFF;
+    font-weight: 400;
+    background: #EC362D;
+    border-radius: 15px;        
+}
+
+.create{
+    width: 600px;
+    height: 316px;
+    margin-bottom: 36px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+
 .invisivel{
     display: none;
 }

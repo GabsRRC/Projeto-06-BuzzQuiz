@@ -1,3 +1,4 @@
+
 let quizzes = [];
 let conteudo = document.querySelector(".quizzesAPI > ul");
 let quizzAtual = {};
@@ -28,7 +29,7 @@ function carregarQuizzAPI(){
     })
 }
 
-carregarQuizzAPI()
+carregarQuizzAPI();
 
 function clicarNoQuizz(quizz){
     const esconde = document.querySelector(".pagina-um");
@@ -44,7 +45,7 @@ function clicarNoQuizz(quizz){
         quizzAtual = response.data; 
 
         //adc aqui função do quizz recebido pela API
-        renderizarUnicoQuizz()
+        renderizarUnicoQuizz();
     })
 
 }
@@ -86,6 +87,11 @@ function renderizarUnicoQuizz(){
 
 
 
+
+let questionsArray = [];    // Array com as perguntas e as respostas
+let levelsArray = [];       // Array com os níveis
+
+
 // Navegar pelas páginas
 function criarQuizz(){
     const esconde = document.querySelector(".pagina-um");
@@ -108,11 +114,18 @@ function definirNiveis(){
     mostra.classList.remove("invisivel");
 }
 
+function finalizarQuizz(){
+    const esconde = document.querySelector(".pagina-cinco");
+    esconde.classList.add("invisivel");
+    const mostra = document.querySelector(".pagina-seis");
+    mostra.classList.remove("invisivel");
+}
+
 function reloadPage(){
     window.location.reload();
 }
 
-// Verifica se a URL passada é válida
+// Verificar se a URL passada é válida
 function verificarURL(url){
     const re = new RegExp('^((https?:)?\\/\\/)?'+ // protocol
     '(?:\\S+(?::\\S*)?@)?' + // authentication
@@ -126,7 +139,7 @@ function verificarURL(url){
     else return false;
 }
 
-// Verifica se a cor está em formato Hexadecimal
+// Verificar se a cor está em formato Hexadecimal
 function verificarCor(color){
     const re = new RegExp(/^#[0-9A-Fa-f]{6}$/);
 
@@ -134,17 +147,19 @@ function verificarCor(color){
     else return false;
 }
 
-// Verifica as informações do quiz
+// Verificar as informações do quizz
 let numPerguntas = 0;
 let numNiveis = 0;
+let quizzTitle = "";
+let quizzURL = "";
 
 function verificarQuizzInfo(){
-    let tituloQuizz = document.querySelector(".quizz-title").value;
-    if (tituloQuizz.length < 20 || tituloQuizz.length > 65 ) {
+    let  quizzTitleInput = document.querySelector(".quizz-title").value;
+    if ( quizzTitleInput.length < 20 ||  quizzTitleInput.length > 65 ) {
         alert("O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres.");
     }
-    let imagemQuizz = document.querySelector(".quizz-url").value;
-    if (!verificarURL(imagemQuizz)) {
+    let quizzURLInput = document.querySelector(".quizz-url").value;
+    if (!verificarURL(quizzURLInput)) {
         alert("A imagem deve ser uma URL válida.");
     }
     numPerguntas = parseInt(document.querySelector(".quizz-num-questions").value);
@@ -155,10 +170,13 @@ function verificarQuizzInfo(){
     if (numNiveis < 2) {
         alert("A quantidade de níveis deve ser no mínimo 2.");
     }
-    if ((tituloQuizz.length >= 20 && tituloQuizz.length <= 65) && (verificarURL(imagemQuizz)) && (numPerguntas >= 3) && (numNiveis >= 2)) {
+    if (( quizzTitleInput.length >= 20 &&  quizzTitleInput.length <= 65) && (verificarURL(quizzURLInput)) && (numPerguntas >= 3) && (numNiveis >= 2)) {
         prosseguirPerguntas();
         criarPerguntas();
     }
+
+    quizzTitle = quizzTitleInput;
+    quizzURL = quizzURLInput;
 }
 
 
@@ -228,6 +246,7 @@ function criarPerguntas(){
 
 //Validar perguntas preenchidas
 let questionsArrayCorrect = [];
+
 function verificarPerguntas(){
     const questions = document.querySelectorAll(".question");
     let count = 0;
@@ -243,8 +262,8 @@ function verificarPerguntas(){
     if(count === questions.length){
 
         definirNiveis();
-        createLevels();
-        correctArray(questionsArrayCorrect, questionsArray, numberOfQuestions);
+        criarNiveis();
+        correctArray(questionsArrayCorrect, questionsArray, numPerguntas);
     }
 }
 
@@ -316,13 +335,11 @@ function verificarPergunta(question) {
     return controle;
 }
 
-
-function createLevels() {
+// Renderizar níveis
+function criarNiveis() {
     const levelsDiv = document.querySelector(".levels");
-
-    /* Renderiza o primeiro nível*/
     levelsDiv.innerHTML += `
-        <div class="createLevels" style="height: 316px" data-identifier="level">
+        <div class="level createLevels" style="height: 316px" data-identifier="level">
             <h4>Nível 1</h4>
             <div class="level-input" style="padding-top: 15px">
                 <input class="quizz-input level-title" type="text" placeholder="Título do nível">
@@ -335,7 +352,7 @@ function createLevels() {
 
     for (let i = 2; i <= numNiveis; i++) {
         levelsDiv.innerHTML += `
-            <div class="createLevels" data-identifier="level">
+            <div class="level createLevels" data-identifier="level">
                 <div>
                     <h4>Nível ${i}</h4>
                 </div>
@@ -354,7 +371,6 @@ let isPercentageZero = 0;
 let objectLevel = {};
 let levelsArrayCorrect = [];
 
-
 function correctArray(array, newArray, n) {
     let i = array.length - n;
     
@@ -363,27 +379,29 @@ function correctArray(array, newArray, n) {
     }
 }
 
-function verifyLevels() {
+
+// Validar níveis preenchidos
+function verificarNiveis() {
     const levels = document.querySelectorAll(".levels");   
     let count = 0;
 
     for (let i = 0; i < levels.length ; i++) {
         const level = levels[i];
-        if(verifyLevel(level)){
+        if(verificarNivel(level)){
             levelsArrayCorrect.push(objectLevel);
             count++;
         }
     }
     
     if(count === levels.length){
-        //nextPage(classPageA, classPageB);
-        //correctArray(levelsArrayCorrect, levelsArray, numNiveis);
-        reloadPage();
-        //sendQuizz(quizzTitle, quizzURL, questionsArray, levelsArray);
+        correctArray(levelsArrayCorrect, levelsArray, numNiveis);
+        //finalizarQuizz();
+        //enviarQuizz(quizzTitle, quizzURL, questionsArray, levelsArray);
+        alert('oi')
     }
 }
 
-function verifyLevel(level) {
+function verificarNivel(level) {
     const levelTitle = level.querySelector(".level-title").value;
     const levelPercentage = parseInt(level.querySelector(".level-percentage").value);
     const levelUrl = level.querySelector(".level-url").value;    
@@ -422,13 +440,24 @@ function verifyLevel(level) {
 }
 
 
+//Enviar quizz para API
 
-//Criar níveis
-function criarNiveis(){
-
+function enviarQuizz(title, image, questions, levels){
+    const object = {
+        title,
+        image,
+        questions,
+        levels
+    }
+    const promise = axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes', object);
+    promise.then(alert('foi'));
+    promise.catch(alert('xiii'))
 }
 
-//Validar níveis
-function validarNiveis(){
 
-}
+
+
+
+
+
+

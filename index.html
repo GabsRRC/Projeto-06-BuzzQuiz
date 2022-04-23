@@ -28,8 +28,7 @@
 
         <div class="quizzesAPI">
             <h1>Todos os Quizzes</h1>
-            <ul>
-            </ul>
+            <ul></ul>
         </div>
     </div>
 
@@ -55,29 +54,6 @@
             </ul>
         </div>
 
-        <div class="quizzBox">
-            <li class="quizzQuestion">
-                <h1>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h1>
-            </li>
-            <ul>
-                <li class="options" >
-                    <img src="./imagens/image 4.png">
-                    <h1>Ratata</h1>
-                </li>
-                <li class="options" >
-                    <img src="./imagens/image 7.png">
-                    <h1>Sapo Gordo</h1>
-                </li>
-                <li class="options" >
-                    <img src="./imagens/image 8.png">
-                    <h1>Mustela Putorius (o furão)</h1>
-                </li>
-                <li class="options" >
-                    <img src="./imagens/image 3.png">
-                    <h1>Gatineo</h1>
-                </li>
-            </ul>
-        </div>
     </div>
 
     <!-- CRIAR QUIZZ (PT1) -->
@@ -106,7 +82,19 @@
         <h1>Agora, decida os níveis</h1>
         <div class="createLevels">
             <ul class="levels"></ul>
-            <h2 onclick="verifyLevels()">Finalizar Quizz</h2>
+            <h2 onclick="verificarNiveis()">Finalizar Quizz</h2>
+        </div>
+    </div>
+
+    <!-- TELA FINAL CRIAÇÃO DO QUIZZ (PT4) -->
+    <div class="container pagina-cinco invisivel">
+        <h1>Seu quizz está pronto</h1>
+        <div class="quizz-success-image">
+            <p class="quizz-success-text"></p>
+        </div>
+        <div class="flex-center">
+        <h2><p>Acessar Quizz</p></h2>
+        <p onclick="enviarQuizz()">Voltar para home</p>
         </div>
     </div>
 
