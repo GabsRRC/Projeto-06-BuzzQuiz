@@ -290,7 +290,7 @@ function verificarPergunta(question) {
             objetoResposta = {
                 text: respostaIncorreta.children[0].value,
                 image: respostaIncorreta.children[1].value,
-                respostaValida: false
+                isCorrectAnswer: false
             };
             arrayRespostasIncorretas.push(objetoResposta);
             numRespostasIncorretas++;
@@ -303,7 +303,7 @@ function verificarPergunta(question) {
     arrayResposta.push({
         text: respostaCorretaTexto,
         image: respostaCorretaImg,
-        respostaValida: true
+        isCorrectAnswer: true
         }
     );
     
@@ -371,6 +371,7 @@ let isPercentageZero = 0;
 let objectLevel = {};
 let levelsArrayCorrect = [];
 
+
 function correctArray(array, newArray, n) {
     let i = array.length - n;
     
@@ -382,7 +383,7 @@ function correctArray(array, newArray, n) {
 
 // Validar níveis preenchidos
 function verificarNiveis() {
-    const levels = document.querySelectorAll(".levels");   
+    const levels = document.querySelectorAll(".level");   
     let count = 0;
 
     for (let i = 0; i < levels.length ; i++) {
@@ -396,8 +397,8 @@ function verificarNiveis() {
     if(count === levels.length){
         correctArray(levelsArrayCorrect, levelsArray, numNiveis);
         //finalizarQuizz();
-        //enviarQuizz(quizzTitle, quizzURL, questionsArray, levelsArray);
         alert('oi')
+        enviarQuizz(quizzTitle, quizzURL, questionsArray, levelsArray);
     }
 }
 
@@ -451,7 +452,6 @@ function enviarQuizz(title, image, questions, levels){
     }
     const promise = axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes', object);
     promise.then(alert('foi'));
-    promise.catch(alert('xiii'))
 }
 
 
