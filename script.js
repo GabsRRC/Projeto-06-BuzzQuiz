@@ -44,7 +44,6 @@ function clicarNoQuizz(quizz){
     promise.then(response => {
         quizzAtual = response.data; 
 
-        //adc aqui função do quizz recebido pela API
         renderizarUnicoQuizz();
     })
 
@@ -52,38 +51,113 @@ function clicarNoQuizz(quizz){
 
 
 function renderizarUnicoQuizz(){
-    document.querySelector(".pagina-dois > div").innerHTML=`
+    document.querySelector(".pagina-dois").innerHTML=`
         <ul style="background-image: url(${quizzAtual.image})" class="quizzTitle">
-            <h1>${quizzAtual.title}</h1>            
+            <div class="filtro-opacidade">
+                <h1>${quizzAtual.title}</h1>  
+            </div>          
         </ul>
         `
-    
-    document.querySelector(".quizzBox").innerHTML=`
-        <div style="background-color: ${quizzAtual.questions[0].color}" class="quizzQuestion">
-            <h1>${quizzAtual.questions[0].title}</h1>
-        </div>
-    `
-    let answersHTML = "";
-    const answers = quizzAtual.questions[0].answers;
 
-    for(let i=0; i <= answers.length-1; i++){
-        answersHTML += `
-        <li class="options" >
-            <img src="${answers[i].image}">
-            <h1>${answers[i].text}</h1>
-        </li>
+    const questionsAPI = quizzAtual.questions 
+
+    for(let i = 0; i < questionsAPI.length; i++){
+
+        const quizzBox = `
+            <div style="background-color: ${questionsAPI[i].color}" class="quizzQuestion">
+                <h1>${questionsAPI[i].title}</h1>
+            </div>
+            `
+
+        let answersHTML = "";
+        const answers = questionsAPI[i].answers;
+
+        for(let i=0; i <= answers.length-1; i++){
+
+            if(answers[i].isCorrectAnswer){
+                answersHTML += `
+                <li onclick="mostrarRespostas(this)" class="options certa" >
+                    <img src="${answers[i].image}">
+                    <h1>${answers[i].text}</h1>
+                </li>
+                `
+            }else {
+                answersHTML += `
+                <li onclick= "mostrarRespostas(this)" class="options errada" >
+                    <img src="${answers[i].image}">
+                    <h1>${answers[i].text}</h1>
+                </li>
+                `
+            }
+        }
+           
+        document.querySelector(".pagina-dois").innerHTML+=`
+        <div class="quizzBox">
+            ${quizzBox}
+
+            <ul> 
+                ${answersHTML}
+            </ul>
+            
+        </div>
         `
+    }    
+}
+
+function mostrarRespostas(resposta){
+
+    resposta.parentNode.querySelector(".certa").classList.add("verde");
+    let errada = resposta.parentNode.querySelectorAll(".errada")
+
+    for(let i=0; i < errada.length; i++){
+        errada[i].classList.add("vermelho");
     }
-    
-    document.querySelector(".quizzBox").innerHTML+=`
-    <ul> 
-        ${answersHTML}
-    </ul>
-    `
-    
+
+    let respostas = resposta.parentNode.querySelectorAll(".options")
+
+    for(let i=0; i < respostas.length; i++){
+        respostas[i].classList.add("opacidade");
+        respostas[i].removeAttribute("onclick");
+    }
+
+    resposta.classList.remove("opacidade");
+
+    scrollar();
+}
+
+function scrollar(){
+    setTimeout(function (){
+        let perguntas = document.querySelectorAll(".quizzBox");
+        for (let i=0; i < perguntas.length; i++){
+            let containsVerde = perguntas[i].querySelector("li").classList.contains("verde");
+            let containsVermelho = perguntas[i].querySelector("li").classList.contains("vermelho");
+
+            if(!(containsVerde || containsVermelho)){
+                perguntas[i].scrollIntoView();
+                break;
+            }
+        }
+    }, 2000);
 }
 
 
+
+
+/*function clicarMeuQuizz(){
+
+    //descobrir meu id
+    //descobrir id da API
+
+    if (listaID.length !== 0){
+        document.querySelector(".createQuizzBox").classList.add("invisivel");
+        document.querySelector(".meusQuizzes").classList.remove("invisivel");
+    } 
+}
+
+function pegarMeusQuizzes(){
+    get 'https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/ID_DO_QUIZZ'
+
+}*/
 
 
 
