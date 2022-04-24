@@ -73,12 +73,22 @@ function renderizarUnicoQuizz(){
         const answers = questionsAPI[i].answers;
 
         for(let i=0; i <= answers.length-1; i++){
-            answersHTML += `
-            <li class="options" >
-                <img src="${answers[i].image}">
-                <h1>${answers[i].text}</h1>
-            </li>
-            `
+
+            if(answers[i].isCorrectAnswer){
+                answersHTML += `
+                <li onclick="mostrarRespostas(this)" class="options certa" >
+                    <img src="${answers[i].image}">
+                    <h1>${answers[i].text}</h1>
+                </li>
+                `
+            }else {
+                answersHTML += `
+                <li onclick= "mostrarRespostas(this)" class="options errada" >
+                    <img src="${answers[i].image}">
+                    <h1>${answers[i].text}</h1>
+                </li>
+                `
+            }
         }
            
         document.querySelector(".pagina-dois").innerHTML+=`
@@ -91,9 +101,45 @@ function renderizarUnicoQuizz(){
             
         </div>
         `
-    }
-    
+    }    
 }
+
+function mostrarRespostas(resposta){
+
+    resposta.parentNode.querySelector(".certa").classList.add("verde");
+    let errada = resposta.parentNode.querySelectorAll(".errada")
+
+    for(let i=0; i < errada.length; i++){
+        errada[i].classList.add("vermelho");
+    }
+
+    let respostas = resposta.parentNode.querySelectorAll(".options")
+
+    for(let i=0; i < respostas.length; i++){
+        respostas[i].classList.add("opacidade");
+        respostas[i].removeAttribute("onclick");
+    }
+
+    resposta.classList.remove("opacidade");
+
+    scrollar();
+}
+
+function scrollar(){
+    setTimeout(function (){
+        let perguntas = document.querySelectorAll(".quizzBox");
+        for (let i=0; i < perguntas.length; i++){
+            let containsVerde = perguntas[i].querySelector("li").classList.contains("verde");
+            let containsVermelho = perguntas[i].querySelector("li").classList.contains("vermelho");
+
+            if(!(containsVerde || containsVermelho)){
+                perguntas[i].scrollIntoView();
+                break;
+            }
+        }
+    }, 2000);
+}
+
 
 
 

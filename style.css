@@ -19,6 +19,7 @@ li{
     background-color: #EC362D;
     text-align: center;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    z-index: 1;
 }
 
 /* primeira página */
@@ -167,8 +168,7 @@ li{
     line-height: 22px;
     color: #FFFFFF;
     display: flex;
-    justify-content: center; 
-    
+    justify-content: center;    
 
 }
 
@@ -192,7 +192,6 @@ li{
     width: 688.16px;
     height: 137.99px;
     margin: 28px 36px;
-
 }
 
 .quizzQuestion > h1{
@@ -229,6 +228,18 @@ li{
     width: 330px;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.verde{
+    color: #009C22;
+}
+
+.vermelho{
+    color:#FF4B4B;
+}
+
+.opacidade{
+    opacity: 0.3;
 }
 
 /* terceira página */
