@@ -2,6 +2,7 @@ let quizzes = [];
 let conteudo = document.querySelector(".quizzesAPI > ul");
 let quizzAtual = {};
 
+//função atualizada! nova - > carregarQuizzAPI2
 function carregarQuizzAPI(){
     let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes');
     
@@ -29,6 +30,8 @@ function carregarQuizzAPI(){
 }
 
 //carregarQuizzAPI();
+
+
 
 function clicarNoQuizz(quizz){
     const esconde = document.querySelector(".pagina-um");
@@ -524,20 +527,10 @@ function enviarQuizz(title, image, questions, levels){
     promise.then(pegarID);
 
     finalizarQuizz();
-    //renderizarFinal();
 }
 
 let meuQuizzID;
 let meuQuizzAtual = {};
-
-function pegarID_OFF(response) {
-    meuQuizzID = response.data.id;
-    //let quizz = response.data;
-    //meuQuizzID = quizz.getAttribute("id");
-    //guardaMeusQuizzesLocalmente(quizz);
-    //chamarTelaSucessoCriacaoQuizz(quizz.id);
-    //quizzRecemCriado = quizz;
-}
 
 function renderizarFinal(){
     const imageSuccess = document.querySelector(".quizz-success-image");
