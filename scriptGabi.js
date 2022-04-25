@@ -1,161 +1,3 @@
-let quizzes = [];
-let conteudo = document.querySelector(".quizzesAPI > ul");
-let quizzAtual = {};
-
-function carregarQuizzAPI(){
-    let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes');
-    
-    promise.then((response) =>{
-        quizzes = response.data;
-        conteudo.innerHTML = "";
-
-        for(let i=0; i <= 5; i+=2){
-            document.querySelector(".quizzesAPI > ul").innerHTML+=`
-            <li class="images"> 
-                <div id="${quizzes[i].id}" onclick = "clicarNoQuizz(this)" style="background-image: url('${quizzes[i].image}');">
-                    <div class="filtro-degrade">
-                        <h4>${quizzes[i].title}</h4>
-                    </div>
-                </div>
-                <div id="${quizzes[i+1].id}" onclick = "clicarNoQuizz(this)" style="background-image: url('${quizzes[i+1].image}');">
-                    <div class="filtro-degrade">
-                        <h4>${quizzes[i+1].title}</h4>
-                    </div>
-                </div>
-            </li>
-            `
-        }
-    })
-}
-
-//carregarQuizzAPI();
-
-function clicarNoQuizz(quizz){
-    const esconde = document.querySelector(".pagina-um");
-    esconde.classList.add("invisivel");
-    const mostra = document.querySelector(".pagina-dois");
-    mostra.classList.remove("invisivel");
-
-    const quizzId = quizz.getAttribute("id");
-
-    let promise = axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${quizzId}`)
-    
-    promise.then(response => {
-        quizzAtual = response.data; 
-
-        renderizarUnicoQuizz();
-    })
-
-}
-
-
-function renderizarUnicoQuizz(){
-    document.querySelector(".pagina-dois").innerHTML=`
-        <ul style="background-image: url(${quizzAtual.image})" class="quizzTitle">
-            <div class="filtro-opacidade">
-                <h1>${quizzAtual.title}</h1>  
-            </div>          
-        </ul>
-        `
-
-    const questionsAPI = quizzAtual.questions 
-
-    for(let i = 0; i < questionsAPI.length; i++){
-
-        const quizzBox = `
-            <div style="background-color: ${questionsAPI[i].color}" class="quizzQuestion">
-                <h1>${questionsAPI[i].title}</h1>
-            </div>
-            `
-
-        let answersHTML = "";
-        const answers = questionsAPI[i].answers;
-
-        for(let i=0; i <= answers.length-1; i++){
-
-            if(answers[i].isCorrectAnswer){
-                answersHTML += `
-                <li onclick="mostrarRespostas(this)" class="options certa" >
-                    <img src="${answers[i].image}">
-                    <h1>${answers[i].text}</h1>
-                </li>
-                `
-            }else {
-                answersHTML += `
-                <li onclick= "mostrarRespostas(this)" class="options errada" >
-                    <img src="${answers[i].image}">
-                    <h1>${answers[i].text}</h1>
-                </li>
-                `
-            }
-        }
-           
-        document.querySelector(".pagina-dois").innerHTML+=`
-        <div class="quizzBox">
-            ${quizzBox}
-            <ul> 
-                ${answersHTML}
-            </ul>
-            
-        </div>
-        `
-    }    
-}
-
-function mostrarRespostas(resposta){
-
-    resposta.parentNode.querySelector(".certa").classList.add("verde");
-    let errada = resposta.parentNode.querySelectorAll(".errada")
-
-    for(let i=0; i < errada.length; i++){
-        errada[i].classList.add("vermelho");
-    }
-
-    let respostas = resposta.parentNode.querySelectorAll(".options")
-
-    for(let i=0; i < respostas.length; i++){
-        respostas[i].classList.add("opacidade");
-        respostas[i].removeAttribute("onclick");
-    }
-
-    resposta.classList.remove("opacidade");
-
-    scrollar();
-}
-
-function scrollar(){
-    setTimeout(function (){
-        let perguntas = document.querySelectorAll(".quizzBox");
-        for (let i=0; i < perguntas.length; i++){
-            let containsVerde = perguntas[i].querySelector("li").classList.contains("verde");
-            let containsVermelho = perguntas[i].querySelector("li").classList.contains("vermelho");
-
-            if(!(containsVerde || containsVermelho)){
-                perguntas[i].scrollIntoView();
-                break;
-            }
-        }
-    }, 2000);
-}
-
-
-
-
-/*function clicarMeuQuizz(){
-    //descobrir meu id
-    //descobrir id da API
-    if (listaID.length !== 0){
-        document.querySelector(".createQuizzBox").classList.add("invisivel");
-        document.querySelector(".meusQuizzes").classList.remove("invisivel");
-    } 
-}
-function pegarMeusQuizzes(){
-    get 'https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/ID_DO_QUIZZ'
-}*/
-
-
-
-
 
 
 let questionsArray = [];    // Array com as perguntas e as respostas
@@ -189,7 +31,6 @@ function finalizarQuizz(){
     esconde.classList.add("invisivel");
     const mostra = document.querySelector(".pagina-seis");
     mostra.classList.remove("invisivel");
-    renderizarFinal();
 }
 
 function reloadPage(){
@@ -519,175 +360,42 @@ function enviarQuizz(title, image, questions, levels){
         questions,
         levels
     }
-
     const promise = axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes', object);
-    promise.then(pegarID);
+    promise.then(alert('foi'));
+    sendQuizzSuccess();
+}
 
+
+//Pegar ID do Quizz e exibir
+let seuIdQuizz_array = JSON.parse(localStorage.getItem("seuIdQuizz"));
+
+function sendQuizzSuccess(){
     finalizarQuizz();
-    //renderizarFinal();
-}
 
-let meuQuizzID;
-let meuQuizzAtual = {};
-
-function pegarID_OFF(response) {
-    meuQuizzID = response.data.id;
-    //let quizz = response.data;
-    //meuQuizzID = quizz.getAttribute("id");
-    //guardaMeusQuizzesLocalmente(quizz);
-    //chamarTelaSucessoCriacaoQuizz(quizz.id);
-    //quizzRecemCriado = quizz;
-}
-
-function renderizarFinal(){
     const imageSuccess = document.querySelector(".quizz-success-image");
     const titleSuccess = document.querySelector(".quizz-success-text");
     
     titleSuccess.innerHTML = quizzTitle;
-    imageSuccess.innerHTML = `<img src="${quizzURL}"/>`;
+    imageSuccess.style.background = `url(${quizzURL})`;
+
+    const promisse = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes');
+    promisse.then(saveIdQuizz);
 }
 
-function clicarNoMeuQuizz(){
-    const esconde = document.querySelector(".pagina-seis");
-    esconde.classList.add("invisivel");
-    const mostra = document.querySelector(".pagina-dois");
-    mostra.classList.remove("invisivel");
-
-    //const quizzId = quizz.getAttribute("id");
-
-    let promise = axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${meuQuizzID}`)
+function saveIdQuizz(response){
+    let your_new_id = response.data[0].id;
     
-    promise.then(response => {
-        meuQuizzAtual = response.data; 
-
-        renderizarMeuQuizz();
-    })
-
-}
-
-function renderizarMeuQuizz(){
-    document.querySelector(".pagina-dois").innerHTML=`
-        <ul style="background-image: url(${meuQuizzAtual.image})" class="quizzTitle">
-            <div class="filtro-opacidade">
-                <h1>${meuQuizzAtual.title}</h1>  
-            </div>          
-        </ul>
-        `
-
-    const questionsAPI = meuQuizzAtual.questions 
-
-    for(let i = 0; i < questionsAPI.length; i++){
-
-        const quizzBox = `
-            <div style="background-color: ${questionsAPI[i].color}" class="quizzQuestion">
-                <h1>${questionsAPI[i].title}</h1>
-            </div>
-            `
-
-        let answersHTML = "";
-        const answers = questionsAPI[i].answers;
-
-        for(let i=0; i <= answers.length-1; i++){
-
-            if(answers[i].isCorrectAnswer){
-                answersHTML += `
-                <li onclick="mostrarRespostas(this)" class="options certa" >
-                    <img src="${answers[i].image}">
-                    <h1>${answers[i].text}</h1>
-                </li>
-                `
-            }else {
-                answersHTML += `
-                <li onclick= "mostrarRespostas(this)" class="options errada" >
-                    <img src="${answers[i].image}">
-                    <h1>${answers[i].text}</h1>
-                </li>
-                `
-            }
-        }
-           
-        document.querySelector(".pagina-dois").innerHTML+=`
-        <div class="quizzBox">
-            ${quizzBox}
-            <ul> 
-                ${answersHTML}
-            </ul>
-            
-        </div>
-        `
-    }    
-}
-
-//Pegar ID do Quizz e exibir
-
-let your_ids_array = JSON.parse(localStorage.getItem("your_ids"));
-
-function pegarID(response){
-    meuQuizzID = response.data.id;
-    
-    if(localStorage.getItem("your_ids") === null){    //se não houver nenhum quizz criado:
-        const new_id = "[" + meuQuizzID + "]";       // -> pega id do novo quizz, coloca em formato de array
-        localStorage.setItem("your_ids", new_id);     // -> armazena
-        your_ids_array = JSON.parse(new_id);          // tranforma em object
+    if(localStorage.getItem("seuIdQuizz") === null){    //se não houver nenhum quizz criado:
+        const new_id = "[" + your_new_id + "]";       // -> pega id do novo quizz, coloca em formato de array
+        localStorage.setItem("seuIdQuizz", new_id);     // -> armazena
+        seuIdQuizz_array = JSON.parse(new_id);          // tranforma em object
     }
     else{
-        const your_ids = localStorage.getItem("your_ids");         // pega ids armazenados (string)
-        your_ids_array = JSON.parse(your_ids);                     // transforma em object
-        your_ids_array.push(meuQuizzID);                          // add novo id
-        const dadosSerializados = JSON.stringify(your_ids_array)   // transforma ele em string novamente
-        localStorage.setItem("your_ids", dadosSerializados)        // armazena dados atualizados
+        const seuIdQuizz = localStorage.getItem("seuIdQuizz");         // pega ids armazenados (string)
+        seuIdQuizz_array = JSON.parse(seuIdQuizz);                     // transforma em object
+        seuIdQuizz_array.push(your_new_id);                          // add novo id
+        const dadosSerializados = JSON.stringify(seuIdQuizz_array)   // transforma ele em string novamente
+        localStorage.setItem("seuIdQuizz", dadosSerializados)        // armazena dados atualizados
 
     }
-}
-
-carregarQuizzAPI2();
-
-function carregarQuizzAPI2(){
-    let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes');
-    
-    promise.then((response) =>{
-        let isYourQuizz = false;
-        quizzes = response.data;
-        const nQuizzes = quizzes.length;
-        conteudo.innerHTML = "";
-
-        for(let i = 0; i < nQuizzes; i++){
-            const span_all_quizzes = document.querySelector('.quizzesAPI > ul');
-            const span_your_quizzes = document.querySelector('.meusQuizzes > ul');
-            const img = quizzes[i].image;
-            const title = quizzes[i].title;
-            const id = quizzes[i].id;
-
-            if(your_ids_array !== null){
-
-                const esconde = document.querySelector('.createQuizzBox')
-                esconde.classList.add('invisivel')
-                const mostra = document.querySelector('.meusQuizzes')
-                mostra.classList.remove('invisivel')
-
-                for(let j = 0; j < your_ids_array.length; j++){
-                    if(quizzes[i].id === your_ids_array[j]){
-                        renderizarQuizzAPI(span_your_quizzes, img, title, id);
-                        isYourQuizz = true;
-                    }
-                }
-            }
-            if(!isYourQuizz){
-                renderizarQuizzAPI(span_all_quizzes, img, title, id);
-            }
-            isYourQuizz = false;
-        }
-    })
-}
-
-function renderizarQuizzAPI(span, img, title, id){
-    span.innerHTML+=`
-    <li class="images"> 
-        <div id="${id}" onclick = "clicarNoQuizz(this)" style="background-image: url('${img}');">
-            <div class="filtro-degrade">
-                <h4>${title}</h4>
-            </div>
-        </div>
-    </li>
-    `
 }

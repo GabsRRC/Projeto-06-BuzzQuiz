@@ -19,16 +19,17 @@
     <!-- BOTÃO PARA CRIAR QUIZZ -->
     
     <div class="container pagina-um">
-        <ul class="createQuizzBox ">
+        <ul class="createQuizzBox">
             <h1>Você não criou nenhum quizz ainda :(</h1>
             <h2 onclick="criarQuizz()">Criar Quizz</h2>
         </ul>
 
         <div class="meusQuizzes invisivel">
-            <h1>Seus Quizzes +</h1>
-            <ul></ul>
+            <h1>Seus Quizzes<ion-icon name="add-circle" onclick="criarQuizz()"></ion-icon></h1>
+            <ul>
+            </ul>
         </div>
-    <!-- EXIBIR QUIZZ EXISTENTES -->
+        <!-- EXIBIR QUIZZ EXISTENTES -->
                 <!-- EM CONSTRUÇÃO... -->
 
         <div class="quizzesAPI">
@@ -73,14 +74,15 @@
     </div>
 
     <!-- TELA FINAL CRIAÇÃO DO QUIZZ (PT4) -->
-    <div class="container pagina-cinco invisivel">
-        <h1>Seu quizz está pronto</h1>
+    <div class="container pagina-seis invisivel">
+        <h1>Seu quizz está pronto!</h1>
         <div class="quizz-success-image">
-            <p class="quizz-success-text"></p>
+            <img src="https://cdn1.dotesports.com/wp-content/uploads/sites/3/2022/03/11195814/mario-1.jpg"/>
         </div>
+        <p class="quizz-success-text"></p>
         <div class="flex-center">
-        <h2><p>Acessar Quizz</p></h2>
-        <p onclick="enviarQuizz()">Voltar para home</p>
+        <h2 onclick="clicarNoMeuQuizz(this)"><p>Acessar Quizz</p></h2>
+        <h3 onclick="reloadPage()">Voltar para home</h3>
         </div>
     </div>
 
