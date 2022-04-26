@@ -102,7 +102,36 @@ function renderizarUnicoQuizz(){
             
         </div>
         `
-    }    
+    }   
+    
+    document.querySelector(".pagina-dois").innerHTML+=`
+    <div class="caixa-resultado invisivel">
+        <div class="porcentagem">
+            <h1>este é o seu resultado</h1>
+        </div>
+
+        <div class="img-texto">
+            <div class="img-resultado">
+            </div>    
+            <div class="texto-resultado">
+                <h6>lalalala jejejejeej bobobobobobobo vuvuvuvuvuvuvuvuvuvuvuvuv
+                </h6>
+            </div>
+        </div>
+        
+        </div>
+        <button onclick="reiniciarQuizz()" class="reiniciar"> 
+            <h1>
+                Reiniciar quizz
+            </h1>
+        </button>
+        <button onclick="voltarHome()" class="voltar"> 
+            <h1>
+                Voltar pra home
+            </h1> 
+        </button>
+    `
+    
 }
 
 function mostrarRespostas(resposta){
@@ -138,25 +167,73 @@ function scrollar(){
                 break;
             }
         }
+
+        resultadoQuizz();
+
     }, 2000);
 }
 
 
+function resultadoQuizz(){
+    let perguntas = document.querySelectorAll(".quizzBox");
+    let respostasVerde = document.querySelectorAll(".quizzBox .verde");
 
+    if (perguntas.length === respostasVerde.length){
+        document.querySelector(".caixa-resultado").classList.remove("invisivel");
+        document.querySelector(".caixa-resultado").scrollIntoView();
 
-/*function clicarMeuQuizz(){
-    //descobrir meu id
-    //descobrir id da API
-    if (listaID.length !== 0){
-        document.querySelector(".createQuizzBox").classList.add("invisivel");
-        document.querySelector(".meusQuizzes").classList.remove("invisivel");
-    } 
+        let porcentagemAcertos = calculoPontuacao();
+
+        let levels = quizzAtual.levels;
+        let levelUsuario;
+
+        for (let i=0; i < levels.length-1; i++){
+            if(porcentagemAcertos < levels[i+1].minValue){
+                levelUsuario = levels[i];
+            }
+
+            if(porcentagemAcertos === 100){
+                levelUsuario = levels[levels.length-1];
+            }
+        }
+
+        document.querySelector(".porcentagem > h1").innerHTML=`
+            ${porcentagemAcertos}% de acerto: ${levelUsuario.title}.        
+        `
+
+        document.querySelector(".img-texto > .img-resultado").innerHTML=`
+            <img src = "${levelUsuario.image}">
+        `
+
+        document.querySelector(".img-texto > .texto-resultado > h6").innerHTML=`
+            ${levelUsuario.text}
+        `
+
+    }
 }
-function pegarMeusQuizzes(){
-    get 'https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/ID_DO_QUIZZ'
-}*/
 
 
+function calculoPontuacao(){
+    let qtdPerguntas = document.querySelectorAll(".quizzBox").length;
+    let qtdRespostasErradas = document.querySelectorAll(".quizzBox .verde.opacidade").length;
+    let qtdRespostasCorretas = (qtdPerguntas - qtdRespostasErradas);
+
+    let porcentagemAcertos = Math.floor(100*qtdRespostasCorretas/qtdPerguntas);
+    return porcentagemAcertos; 
+}
+
+function voltarHome(){
+    document.querySelector(".pagina-dois").classList.add("invisivel");
+    document.querySelector(".pagina-um").classList.remove("invisivel");
+}
+
+function reiniciarQuizz(){
+    document.querySelector(".pagina-dois").scrollIntoView();
+    document.querySelector(".caixa-resultado").classList.add("invisivel");
+
+    let respostas = document.querySelectorAll(".quizzBox .verde.vermelho").length;
+    //if (respostas )
+}
 
 
 
