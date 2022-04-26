@@ -229,10 +229,8 @@ function voltarHome(){
 
 function reiniciarQuizz(){
     document.querySelector(".pagina-dois").scrollIntoView();
-    document.querySelector(".caixa-resultado").classList.add("invisivel");
 
-    let respostas = document.querySelectorAll(".quizzBox .verde.vermelho").length;
-    //if (respostas )
+    renderizarUnicoQuizz();
 }
 
 
